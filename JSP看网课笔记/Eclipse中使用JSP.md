@@ -155,7 +155,7 @@ show.jsp
 http://localhost:8888/MyJspProject/show.jsp?uname=aa&upwd=123&uage=22&uhobbies=%E7%AF%AE%E7%90%83<br>
 		连接/文件？参数名1=参数值1 & 参数名2=参数值2 & 参数名1=参数值1 
   
-get提交方式:  method="get" 和 地址栏 、超链接(<a href="xx">)<br>
+get提交方式:  method="get" 和 地址栏 、超链接<br>
 请求方式 默认都属于get提交方式
 
 **get与post请求方式的区别**：<br>
