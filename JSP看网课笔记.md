@@ -6,7 +6,10 @@
 
 动态网页 需要使用到 服务端脚本语言（JSP）
 
-<img src="img/动态静态.png">
+<img src="img/静态动态.png">
+
+
+
 ## 2架构
 #### CS：Client Server<br>
 CS不足：<br>
