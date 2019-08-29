@@ -159,6 +159,55 @@ session机制：
  如果是老顾客（有钥匙），则不需要分配；该顾客手里的钥匙 会 和柜子 自动一一对应。
  
 
+cookie和session的区别|session|cookie
+---|:--:
+保存的位置|服务端|客户端
+安全性|较安全|较不安全
+保存的内容|Object|String		
+
+## appliation 全局对象
+
+方法|描述
+---|:--:
+String getContextPath()|虚拟路径
+String getRealPath(String name)|绝对路径（虚拟路径 相对的绝对路径）
+
+JSP9大内置对象<br>
++ pageContext  JSP页面容器
++ request   请求对象
++ session   会话对象
++ appliation 全局对象
++ response  响应对象
++ config  配置对象（服务器配置信息）
++ out    输出对象
++ page   当前JSP页面对象（相当于java中的this）
++ exception 异常对象
+
+
+
+四种范围对象（小->大）<br>
++ pageContext  JSP页面容器   （page对象）； 当前页面有效
++ request   请求对象		 	同一次请求有效
++ session   会话对象			同一次会话有效
++ appliation 全局对象			全局有效（整个项目有效）<br>
+
+以上4个对象共有的方法：<br>
++ Object getAttribute(String name):根据属性名，或者属性值
++ void setAttribute(String name,Object obj) :设置属性值（新增，修改）
++ setAttribute("a","b") ;//如果a对象之前不存在，则新建一个a对象 ；
+				 如果a之前已经存在，则将a的值改为b
++ void removeAttribute(String name)：根据属性名，删除对象
+
+范围区别
++ a.pageContext 当前页面有效 (页面跳转后无效)
++ b.request   同一次请求有效；其他请求无效 （请求转发后有效；重定向后无效）
++ c.session  同一次会话有效  （无论怎么跳转，都有效；关闭/切换浏览器后无效 ； 从 登陆->退出 之间 全部有效）
++ d.application 全局变量；整个项目运行期间 都有效 (切换浏览器 仍然有效)；关闭服务、其他项目 无效
+
+->多个项目共享、重启后仍然有效 ：JNDI
+
+1.以上的4个范围对象，通过 setAttribute()复制，通过getAttribute()取值；
+2.以上范围对象，尽量使用最小的范围。因为 对象的范围越大，造成的性能损耗越大
 
 
 
