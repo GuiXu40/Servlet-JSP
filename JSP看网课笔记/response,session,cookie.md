@@ -4,6 +4,8 @@
 + void sendRedirect(String location ) throws IOException; :页面跳转的一种方式（重定向）
 + void setContetType(String type):设置服务端响应的编码（设置服务端的contentType类型）
 
+<img src="img/response.png">
+
 示例：登陆
 login.jsp  -> check.jsp  ->success.jsp
 
@@ -92,6 +94,14 @@ success.jsp
 
 	张三（客户端）    -> 	服务窗口 B （服务端 ） ->结束
 ```
+请求次数问题示例图<br>
+
+<img src="img/请求次数问题.png">
+
+<br>
+请求转发与重定向<br>
+
+<img src="img/请求转发与重定向.png">
 ## 2.session(服务端)
 Cookie（客户端，不是内置对象）:Cookie是由 服务端生成的 ，再发送给客户端保存。<br>
 相当于 本地缓存的作用： 客户端(hello.mp4,zs/abc)->服务端(hello.mp4；zs/abc)<br>
