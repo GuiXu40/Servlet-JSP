@@ -102,6 +102,9 @@ success.jsp
 请求转发与重定向<br>
 
 <img src="img/请求转发与重定向.png">
+
+
+
 ## 2.session(服务端)
 Cookie（客户端，不是内置对象）:Cookie是由 服务端生成的 ，再发送给客户端保存。<br>
 相当于 本地缓存的作用： 客户端(hello.mp4,zs/abc)->服务端(hello.mp4；zs/abc)<br>
@@ -209,13 +212,29 @@ JSP9大内置对象<br>
 1.以上的4个范围对象，通过 setAttribute()复制，通过getAttribute()取值；
 2.以上范围对象，尽量使用最小的范围。因为 对象的范围越大，造成的性能损耗越大
 
+cookie和session<br>
 
+<img src="img/cookie和session.png">
 
+**request范围**<br>
 
+<img src="img/request范围.png">
 
+**request作用域**<br>
 
+<img src="img/request作用域.png">
 
+**session**<br>
 
+<img src="img/session.png">
+
+**session和cookie理解**<br>
+
+<img src="img/session和cookie理解.png">
+
+**session示例**<br>
+
+<img src="img/session示例.png">
 
 
 
