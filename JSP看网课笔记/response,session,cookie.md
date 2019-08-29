@@ -1,25 +1,86 @@
-1
-response :响应对象
-提供的方法：
-void addCookie( Cookie cookie ); 服务端向客户端增加cookie对象
-void sendRedirect(String location ) throws IOException; :页面跳转的一种方式（重定向）
-void setContetType(String type):设置服务端响应的编码（设置服务端的contentType类型）
+## response :响应对象
+提供的方法：<br>
++ void addCookie( Cookie cookie ); 服务端向客户端增加cookie对象
++ void sendRedirect(String location ) throws IOException; :页面跳转的一种方式（重定向）
++ void setContetType(String type):设置服务端响应的编码（设置服务端的contentType类型）
 
 示例：登陆
 login.jsp  -> check.jsp  ->success.jsp
 
-			请求转发			重定向
+login.jsp
+```JSP
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="check.jsp" method="post">
+		用户名:<input type="text" name="uname"><br>
+		密码:  <input type="password" name="upwd"><br>
+		<input type="submit" value="登陆">
+	</form>
+</body>
+</html>
+```
+check.jsp
+```JSP
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+		request.setCharacterEncoding("UTF-8");  //设置编码
+		String name=request.getParameter("uname");
+		String pwd=request.getParameter("upwd");
+		if(name.equals("abc") && pwd.equals("123")){
+			//response.sendRedirect("success.jsp");  导致数据丢失  重定向
+			request.getRequestDispatcher("success.jsp").forward(request,response);
+		}else{
+			out.print("用户名和密码错误");
+		}
+	%>
+</body>
+</html>	
+```
+success.jsp
+```JSP
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	登陆成功！<br>
+	<%
+		String name=request.getParameter("uname");
+		out.print("姓名："+name);
+	%>
+</body>
+</html>
+```
+请求转发和重定向的比较
 
-地址栏是否改变		不变(check.jsp)		改变(success.jsp)
 
-是否保留第一次		保留			不保留		--4种范围对象
-请求时的数据
+比较|请求转发	重定向
+---|:--:
+地址栏是否改变|不变(check.jsp)|改变(success.jsp)
+是否保留第一次请求时的数据|保留|不保留--4种范围对象
+请求的次数|1|2
+跳转发生的位置|服务端|客户端发出的第二次跳转
 
-请求的次数		1			2
-
-跳转发生的位置		服务端			客户端发出的第二次跳转
-
-
+```
 转发、重定向：
 
 转发：  
@@ -30,23 +91,27 @@ login.jsp  -> check.jsp  ->success.jsp
 	张三（客户端） 	  -> 	服务窗口 A （服务端 ） ->去找B
 
 	张三（客户端）    -> 	服务窗口 B （服务端 ） ->结束
+```
+## 2.session(服务端)
+Cookie（客户端，不是内置对象）:Cookie是由 服务端生成的 ，再发送给客户端保存。<br>
+相当于 本地缓存的作用： 客户端(hello.mp4,zs/abc)->服务端(hello.mp4；zs/abc)<br>
+**作用**：提高访问服务端的效率，但是安全性较差。
 
-2.	session(服务端)
-Cookie（客户端，不是内置对象）:Cookie是由 服务端生成的 ，再发送给客户端保存。
-相当于 本地缓存的作用： 客户端(hello.mp4,zs/abc)->服务端(hello.mp4；zs/abc)
-作用：提高访问服务端的效率，但是安全性较差。
+Cookie：	name=value <br>  
+javax.servlet.http.Cookie<br>
 
-Cookie：	name=value   
-javax.servlet.http.Cookie
-public Cookie(String name,String value)
-String getName()：获取name
-String getValue():获取value
-void setMaxAge(int expiry);最大有效期 （秒）
+方法|描述
+---|:--:
+public Cookie(String name,String value)|创建一个Cookie对象
+String getName()|获取name
+String getValue()|获取value
+void setMaxAge(int expiry)|最大有效期 （秒）
 
-服务端准备Cookie：
-	response.addCookie(Cookie cookie)
-页面跳转（转发，重定向）
-客户端获取cookie:  request.getCookies();
+服务端准备Cookie：<br>
++ response.addCookie(Cookie cookie)
+
+页面跳转（转发，重定向）<br>
++ 客户端获取cookie:  request.getCookies();
 
 a.服务端增加cookie :response对象；客户端获取对象：request对象
 b.不能直接获取某一个单独对象，只能一次性将 全部的cookie拿到
@@ -55,10 +120,7 @@ b.不能直接获取某一个单独对象，只能一次性将 全部的cookie�
 
 建议 cookie只保存  英文数字，否则需要进行编码、解码
 
-3. 使用Cookie实现  记住用户名  功能
-
-
-4.session :会话
+## 3.session :会话
 a.浏览网站：开始-关闭
 b.购物：  浏览、付款、退出
 c.电子邮件：浏览、写邮件、退出
