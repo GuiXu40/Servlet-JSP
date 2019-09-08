@@ -4,8 +4,6 @@
 <a href="#p2">:dart:JSP声明</a><br>
 <a href="#p3">:dart:JSP表达式</a><br>
 <a href="#p4">:dart:JSP 动作元素</a><br>
-<a href="#p5">:dart:</a><br>
-<a href="#p6">:dart:</a><br>
 
 <p id="p1"></p>
 
@@ -246,8 +244,3 @@ include 动作实例
 
 今天的日期是: 2016-6-25 14:08:17
 ```
-<p id="p6"></p>
-
-## :black_joker:
-<a href="#title">:flower_playing_cards:回到目录</a>
-#### :memo:
