@@ -12,7 +12,7 @@
 <p id="p1"></p>
 
 ## :black_joker:JSP 隐式对象
-<a href="#title">:flower_playing_cards:回到目录</a>
+<a href="#title">:flower_playing_cards:回到目录</a><br>
 || JSP隐式对象是JSP容器为每个页面提供的Java对象，开发者可以直接使用它们而不用显式声明。JSP隐式对象也被称为预定义变量。
 
 JSP所支持的九大隐式对象：
@@ -32,7 +32,7 @@ Exception	Exception类的对象，代表发生错误的JSP页面中对应的异�
 <p id="p2"></p>
 
 ## :black_joker:request对象与response对象
-<a href="#title">:flower_playing_cards:回到目录</a>
+<a href="#title">:flower_playing_cards:回到目录</a><br>
 request对象是javax.servlet.http.HttpServletRequest 类的实例。每当客户端请求一个JSP页面时，JSP引擎就会制造一个新的request对象来代表这个请求。
 
 request对象提供了一系列方法来获取HTTP头信息，cookies，HTTP方法等等。
@@ -76,7 +76,7 @@ session对象用来跟踪在各个客户端请求间的会话。
 <p id="p3"></p>
 
 ## :black_joker:out对象
-<a href="#title">:flower_playing_cards:回到目录</a>
+<a href="#title">:flower_playing_cards:回到目录</a><br>
 out对象是 javax.servlet.jsp.JspWriter 类的实例，用来在response对象中写入内容。
 
 最初的JspWriter类对象根据页面是否有缓存来进行不同的实例化操作。可以在page指令中使用buffered='false'属性来轻松关闭缓存。
@@ -94,7 +94,7 @@ out.flush()|刷新输出流
 <p id="p4"></p>
 
 ## :black_joker:application对象
-<a href="#title">:flower_playing_cards:回到目录</a>
+<a href="#title">:flower_playing_cards:回到目录</a><br>
 application对象直接包装了servlet的ServletContext类的对象，是javax.servlet.ServletContext 类的实例。
 
 这个对象在JSP页面的整个生命周期中都代表着这个JSP页面。这个对象在JSP页面初始化时被创建，随着jspDestroy()方法的调用而被移除。
@@ -132,7 +132,7 @@ application对象直接包装了servlet的ServletContext类的对象，是javax.
 <p id="p5"></p>
 
 ## :black_joker:config对象
-<a href="#title">:flower_playing_cards:回到目录</a>
+<a href="#title">:flower_playing_cards:回到目录</a><br>
 config对象是 javax.servlet.ServletConfig 类的实例，直接包装了servlet的ServletConfig类的对象。
 
 这个对象允许开发者访问Servlet或者JSP引擎的初始化参数，比如文件路径等。
@@ -143,7 +143,7 @@ config.getServletName(); 它返回包含在元素中的servlet名字，注意，
 <p id="p6"></p>
 
 ## :black_joker:pageContext 对象
-<a href="#title">:flower_playing_cards:回到目录</a>
+<a href="#title">:flower_playing_cards:回到目录</a><br>
 pageContext对象是javax.servlet.jsp.PageContext 类的实例，用来代表整个JSP页面。
 
 这个对象主要用来访问页面信息，同时过滤掉大部分实现细节。
@@ -160,12 +160,12 @@ pageContext.removeAttribute("attrName", PAGE_SCOPE);
 <p id="p7"></p>
 
 ## :black_joker:page 对象
-<a href="#title">:flower_playing_cards:回到目录</a>
+<a href="#title">:flower_playing_cards:回到目录</a><br>
 这个对象就是页面实例的引用。它可以被看做是整个JSP页面的代表。
 
 page 对象就是this对象的同义词。
 <p id="p8"></p>
 
 ## :black_joker:exception 对象
-<a href="#title">:flower_playing_cards:回到目录</a>
+<a href="#title">:flower_playing_cards:回到目录</a><br>
 exception 对象包装了从先前页面中抛出的异常信息。它通常被用来产生对出错条件的适当响应。:
