@@ -1,0 +1,125 @@
+1.jdbc总结（模板、八股文）：
+
+try{
+a.导入驱动包、加载具体驱动类Class.forName("具体驱动类");
+b.与数据库建立连接connection = DriverManager.getConnection(...);
+c.通过connection，获取操作数据库的对象（Statement\preparedStatement\callablestatement）
+stmt = connection.createStatement();
+d.(查询)处理结果集rs = pstmt.executeQuery()
+while(rs.next()){ rs.getXxx(..) ;}
+}catch(ClassNotFoundException e  )
+{ ...}
+catch(SQLException e)
+{...
+}
+catch(Exception e)
+{...
+}
+finally
+{
+	//打开顺序，与关闭顺序相反
+	if(rs!=null)rs.close()
+	if(stmt!=null) stmt.close();
+	if(connection!=null)connection.close();
+}
+
+--jdbc中，除了Class.forName() 抛出ClassNotFoundException，其余方法全部抛SQLException
+
+
+2.CallableStatement:调用 存储过程、存储函数
+connection.prepareCall(参数：存储过程或存储函数名)
+参数格式：
+存储过程（无返回值return，用out参数替代）：
+	{ call  存储过程名(参数列表) }
+存储函数（有返回值return）：
+	{ ? = call  存储函数名(参数列表) }
+
+
+
+create or replace procedure addTwoNum ( num1  in number,num2  in number,result out number )  -- 1 + 2 ->3
+as
+begin
+	result := num1+num2 ;
+end ;
+/
+
+
+强调：
+如果通过sqlplus 访问数据库，只需要开启：OracleServiceSID
+通过其他程序访问数据（sqldevelop、navicate、JDBC），需要开启：OracleServiceSID、XxxListener
+
+
+JDBC调用存储过程的步骤：
+a.产生 调用存储过程的对象（CallableStatement） cstmt = 	connection.prepareCall(   "..." ) ;
+b.通过setXxx()处理 输出参数值 cstmt.setInt(1, 30);
+c.通过 registerOutParameter(...)处理输出参数类型
+d.cstmt.execute()执行
+e.接受 输出值（返回值）getXxx()
+
+
+调存储函数：
+create or replace function addTwoNumfunction ( num1  in number,num2  in number)  -- 1 + 2 
+return number
+as
+	result number ;	
+begin
+	result := num1+num2 ;
+	return result ;
+end ;
+/
+JDBC调用存储函数：与调存储过程的区别：
+在调用时，注意参数："{? =  call addTwoNumfunction	(?,?) }"
+
+
+
+
+3.处理CLOB/BLOB类型
+处理稍大型数据：
+	
+a.存储路径	E:\JDK_API_zh_CN.CHM
+	通过JDBC存储文件路径，然后 根据IO操作处理
+	例如：JDBC将 E:\JDK_API_zh_CN.CHM 文件 以字符串形式“E:\JDK_API_zh_CN.CHM”存储到数据库中
+		获取：1.获取该路径“E:\JDK_API_zh_CN.CHM”  2.IO	
+
+b.
+	CLOB：大文本数据 （小说->数据）
+	BLOB：二进制
+
+
+clob:大文本数据   字符流 Reader Writer
+存
+1.先通过pstmt 的? 代替小说内容 （占位符）
+2.再通过pstmt.setCharacterStream(2, reader,  (int)file.length());  将上一步的？替换为 小说流， 注意第三个参数需要是 Int类型
+
+取：
+1.通过Reader reader = rs.getCharacterStream("NOVEL") ; 将cloc类型的数据  保存到Reader对象中
+2. 将Reader通过Writer输出即可。
+
+
+blob:二进制  字节流 InputStream OutputStream
+与CLOB步骤基本一致，区别：setBinaryStream(...)  getBinaryStream(...)   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
